@@ -26,13 +26,61 @@ struct MapView: View {
 //      MapMarker(coordinate: item.location, tint: .accentColor)
 
       // custom basic (interactive)
+//      MapAnnotation(coordinate: item.location) {
+//        Image("logo")
+//          .resizable()
+//          .scaledToFit()
+//          .frame(width: 32, height: 32, alignment: .center)
+//      }
+      // Complext Custom
       MapAnnotation(coordinate: item.location) {
-        Image("logo")
+        MapAnnotationView(location: item)
+      }
+    })//: Map
+    .overlay(
+      HStack (alignment: .center, spacing: 12) {
+        Image("compass")
           .resizable()
           .scaledToFit()
-          .frame(width: 32, height: 32, alignment: .center)
-      }
-    })
+          .frame(width: 48, height: 48, alignment: .center)
+
+        VStack(alignment: .leading, spacing: 3) {
+          Divider()
+
+          HStack {
+            Text("Latitude:")
+              .font(.footnote)
+              .fontWeight(.bold)
+              .foregroundColor(.accentColor)
+            Spacer()
+            Text("\(region.center.latitude)")
+              .font(.footnote)
+              .foregroundColor(.white)
+          }//: HStack
+
+          Divider()
+
+          HStack {
+            Text("Longitude:")
+              .font(.footnote)
+              .fontWeight(.bold)
+              .foregroundColor(.accentColor)
+            Spacer()
+            Text("\(region.center.longitude)")
+              .font(.footnote)
+              .foregroundColor(.white)
+          }//: HStack
+        }
+      }//: HStack
+      .padding(.vertical, 12)
+      .padding(.horizontal, 16)
+      .background(
+        Color.black
+          .cornerRadius(8)
+          .opacity(0.6)
+      )
+      .padding() ,alignment: .top
+    )
   }
 
 }
